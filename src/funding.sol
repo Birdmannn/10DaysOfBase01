@@ -15,7 +15,7 @@ interface IFunding {
     function getDonation(uint256 id) external view returns (Donation memory);
     function getTotalDonated(uint256 id) external view returns (uint256);
     function donate(uint256 id, uint256 amount) external;
-    
+
     // events
     event DonationCreated(uint256 id, uint256 amount, address creator, uint256 timestamp, string description);
     event DonationMade(uint256 id, address donor, uint256 amount);
@@ -25,10 +25,9 @@ contract Funding is IFunding {
     // State variables
     uint256 public totalDonations;
     address public owner;
-    mapping(uint256 => Donation) private donations;   // map of donation id to amount
+    mapping(uint256 => Donation) private donations; // map of donation id to amount
     mapping(address => bool) private isDonor;
     mapping(address => bool) private isBeneficiary;
-
 
     constructor(address _owner) {
         owner = _owner;
