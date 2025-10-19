@@ -12,8 +12,11 @@ struct Donation {
 interface IFunding {
     // externals
     function createDonation(uint256 amount, string memory description) external returns (uint256);
+
     function getDonation(uint256 id) external view returns (Donation memory);
+
     function getTotalDonated(uint256 id) external view returns (uint256);
+
     function donate(uint256 id, uint256 amount) external;
 
     // events
@@ -44,6 +47,7 @@ contract Funding is IFunding {
             timestamp: block.timestamp,
             description: description
         });
+
         emit DonationCreated(id, amount, msg.sender, block.timestamp, description);
 
         return id;
@@ -59,6 +63,7 @@ contract Funding is IFunding {
 
         uint256 totalAmount = donations[id].totalDonated + amount;
         require(totalAmount <= donations[id].targetAmount);
+        donations[id].totalDonated = totalAmount;
 
         emit DonationMade(id, msg.sender, amount);
     }
@@ -77,3 +82,5 @@ contract Funding is IFunding {
 }
 
 // 0x16279052BFEde721ed2662F41A754966a3E48124
+// updated
+// 0xcd7679B6012bB42d4f0613488D8419e5b99A134B
